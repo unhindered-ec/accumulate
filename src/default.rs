@@ -1,4 +1,4 @@
-#[cfg(feature = "ordered_float")]
+#[cfg(feature = "ordered-float")]
 use ordered_float::OrderedFloat;
 
 use super::{keep_results::KeepResults, saturating_sum::SaturatingSum, sum::Sum, widen::Widen};
@@ -75,7 +75,7 @@ default_to! {
     // ErrorValue<f64> => KeepResults<Sum>,
 }
 
-#[cfg(feature = "ordered_float")]
+#[cfg(feature = "ordered-float")]
 default_to! {
     OrderedFloat<f32> => KeepResults<Sum>,
     OrderedFloat<f64> => KeepResults<Sum>,
