@@ -1,5 +1,5 @@
 [language-server.rust-analyzer.config.rustfmt]
-overrideCommand = ["rustfmt-unstable", "--", "rustfmt", "--edition", "2021"]
+overrideCommand = ["rustfmt-unstable", "--", "rustfmt", "--edition", "2024"]
 
 [language-server.rust-analyzer.config.check]
 overrideCommand = [

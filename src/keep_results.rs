@@ -1,9 +1,9 @@
 use std::{convert::Infallible, slice::SliceIndex};
 
-use super::strategy::AccumulateStrategy;
 use super::{
     combine::Combine,
     results::{IndexResults, IndividualResults},
+    strategy::AccumulateStrategy,
 };
 
 // Could make this generic in a ´C: Container` struct to use Vec/VecDeque/...
@@ -19,7 +19,7 @@ impl<Item> AccumulateStrategy<Item> for StoreResults {
         Vec::new()
     }
 
-    fn accululate_into<I>(state: &mut Self::State, iter: I) -> Result<(), Self::Error>
+    fn accumulate_into<I>(state: &mut Self::State, iter: I) -> Result<(), Self::Error>
     where
         I: Iterator<Item = Item>,
     {

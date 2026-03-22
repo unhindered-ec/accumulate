@@ -7,7 +7,7 @@ where
 
     fn initialize() -> Self::State;
 
-    fn accululate_into<I>(state: &mut Self::State, iter: I) -> Result<(), Self::Error>
+    fn accumulate_into<I>(state: &mut Self::State, iter: I) -> Result<(), Self::Error>
     where
         I: Iterator<Item = Item>;
 
@@ -16,7 +16,7 @@ where
         I: Iterator<Item = Item>,
     {
         let mut state = Self::initialize();
-        Self::accululate_into(&mut state, iter)?;
+        Self::accumulate_into(&mut state, iter)?;
         Ok(state)
     }
 }

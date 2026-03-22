@@ -21,7 +21,7 @@ where
         clippy::arithmetic_side_effects,
         reason = "This accumulation strategy explicitly uses the default sum behaviour"
     )]
-    fn accululate_into<I>(state: &mut Self::State, iter: I) -> Result<(), Self::Error>
+    fn accumulate_into<I>(state: &mut Self::State, iter: I) -> Result<(), Self::Error>
     where
         I: Iterator<Item = T>,
     {

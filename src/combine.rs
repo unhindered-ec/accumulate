@@ -46,13 +46,13 @@ where
         )
     }
 
-    fn accululate_into<I>(state: &mut Self::State, iter: I) -> Result<(), Self::Error>
+    fn accumulate_into<I>(state: &mut Self::State, iter: I) -> Result<(), Self::Error>
     where
         I: Iterator<Item = Item>,
     {
         let len = IndividualStrategy::len(&state.0);
-        IndividualStrategy::accululate_into(&mut state.0, iter).map_err(CombineError::First)?;
-        TotalStrategy::accululate_into(
+        IndividualStrategy::accumulate_into(&mut state.0, iter).map_err(CombineError::First)?;
+        TotalStrategy::accumulate_into(
             &mut state.1,
             IndividualStrategy::results(&state.0)
                 .skip(len)

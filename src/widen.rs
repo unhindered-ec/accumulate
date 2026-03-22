@@ -23,11 +23,11 @@ where
         Strategy::initialize()
     }
 
-    fn accululate_into<I>(state: &mut Self::State, iter: I) -> Result<(), Self::Error>
+    fn accumulate_into<I>(state: &mut Self::State, iter: I) -> Result<(), Self::Error>
     where
         I: Iterator<Item = Item>,
     {
-        Strategy::accululate_into(state, iter.map(Into::into))
+        Strategy::accumulate_into(state, iter.map(Into::into))
     }
 
     fn accumulate<I>(iter: I) -> Result<Self::State, Self::Error>

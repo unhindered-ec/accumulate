@@ -16,7 +16,7 @@ macro_rules! impl_accumulate_strategy {
                 Self::State::default()
             }
 
-            fn accululate_into<I>(state: &mut Self::State, iter: I) -> Result<(), Self::Error>
+            fn accumulate_into<I>(state: &mut Self::State, iter: I) -> Result<(), Self::Error>
             where
                 I: Iterator<Item = $t>,
             {
@@ -84,7 +84,7 @@ macro_rules! impl_accumulate_strategy {
                 Self::State::default()
             }
 
-            fn accululate_into<I>(state: &mut Self::State, iter: I) -> Result<(), Self::Error>
+            fn accumulate_into<I>(state: &mut Self::State, iter: I) -> Result<(), Self::Error>
             where
                 I: Iterator<Item = $t>,
             {
@@ -152,7 +152,11 @@ macro_rules! impl_accumulate_strategy {
 
 impl_accumulate_strategy!(signed i8, i16, i32, i64, i128, isize);
 impl_accumulate_strategy!(unsigned u8, u16, u32, u64, u128, usize);
-// impl_accumulate_strategy!(signedw ScoreValue<i8>, ScoreValue<i16>, ScoreValue<i32>, ScoreValue<i64>, ScoreValue<i128>, ScoreValue<isize>);
-// impl_accumulate_strategy!(unsigned2 ScoreValue<u8>, ScoreValue<u16>, ScoreValue<u32>, ScoreValue<u64>, ScoreValue<u128>, ScoreValue<usize>);
-// impl_accumulate_strategy!(signedw ErrorValue<i8>, ErrorValue<i16>, ErrorValue<i32>, ErrorValue<i64>, ErrorValue<i128>, ErrorValue<isize>);
-// impl_accumulate_strategy!(unsigned2 ErrorValue<u8>, ErrorValue<u16>, ErrorValue<u32>, ErrorValue<u64>, ErrorValue<u128>, ErrorValue<usize>);
+// impl_accumulate_strategy!(signedw ScoreValue<i8>, ScoreValue<i16>,
+// ScoreValue<i32>, ScoreValue<i64>, ScoreValue<i128>, ScoreValue<isize>);
+// impl_accumulate_strategy!(unsigned2 ScoreValue<u8>, ScoreValue<u16>,
+// ScoreValue<u32>, ScoreValue<u64>, ScoreValue<u128>, ScoreValue<usize>);
+// impl_accumulate_strategy!(signedw ErrorValue<i8>, ErrorValue<i16>,
+// ErrorValue<i32>, ErrorValue<i64>, ErrorValue<i128>, ErrorValue<isize>);
+// impl_accumulate_strategy!(unsigned2 ErrorValue<u8>, ErrorValue<u16>,
+// ErrorValue<u32>, ErrorValue<u64>, ErrorValue<u128>, ErrorValue<usize>);

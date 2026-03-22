@@ -2,6 +2,11 @@
 name = "unhindered-accumulate"
 version = "0.1.0"
 edition = "2024"
+description = "Generic accumulation of results"
+documentation = "https://github.com/unhindered-ec/accumulate"
+repository = "https://github.com/unhindered-ec/accumulate.git"
+license = "MIT OR Apache-2.0"
+publish = false
 
 [dependencies]
 ordered-float = { version = "5.1.0", optional = true }
