@@ -13,14 +13,15 @@ pub trait DefaultAccumulateStrategy {
     type Strategy;
 }
 
+#[macro_export]
 macro_rules! default_to {
     ($t: ty => $d: ty) => {
-        impl DefaultAccumulateStrategy for $t {
+        impl $crate::default::DefaultAccumulateStrategy for $t {
             type Strategy = $d;
         }
     };
     ($($t: ty => $d: ty),+$(,)?) => {
-        $(default_to!($t => $d);)+
+        $($crate::default_to!($t => $d);)+
     }
 }
 
