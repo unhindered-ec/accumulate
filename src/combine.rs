@@ -126,10 +126,7 @@ where
     IndividualStrategy: IndividualResults<Item, Item: Clone>,
     TotalStrategy: TotalResult<IndividualStrategy::Item>,
 {
-    type TotalRef<'a>
-        = TotalStrategy::TotalRef<'a>
-    where
-        Self::Total: 'a;
+    type TotalRef<'a> = TotalStrategy::TotalRef<'a>;
 
     type Total = TotalStrategy::Total;
 

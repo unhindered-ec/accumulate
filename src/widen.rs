@@ -85,10 +85,7 @@ where
     Strategy: TotalResult<NewItem>,
     Item: Into<NewItem>,
 {
-    type TotalRef<'a>
-        = Strategy::TotalRef<'a>
-    where
-        Self::Total: 'a;
+    type TotalRef<'a> = Strategy::TotalRef<'a>;
     type Total = Strategy::Total;
 
     fn total(state: &Self::State) -> Self::TotalRef<'_> {
