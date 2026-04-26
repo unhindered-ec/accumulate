@@ -209,3 +209,27 @@ where
         self.total().fmt(f)
     }
 }
+
+#[cfg(test)]
+mod test {
+    use crate::{accumulate::Accumulate, accumulated::Accumulated};
+
+    #[test]
+    fn saturating_u8() {
+        let scores: [u8; 7] = [5, 8, 9, 6, 3, 2, 0];
+        // If we don't specify a second generic in `Accumulate<T>`,
+        // the second generic defaults to the default accumulation strategy.
+        // Since `T = u8` here, we use the default strategy for `u8`,
+        // which is `KeepResults<SaturatingSum>`, so the expanded type
+        // becomes `Accumulate<u8, KeepResults<SaturatingSum>>`. Because
+        // `KeepResults` is a type alias, which is actually
+        // `Accumulate<u8, Combine<StoreResults, SaturatingSum>>`.
+        //                       \/ - note how we didn't specify an accumulation
+        //                            strategy here
+        let result: Accumulated<u8> = scores.into_iter().accumulate().unwrap();
+        // `SaturatingSum` ensures we have the `.total()` method.
+        assert_eq!(result.total(), 33);
+        // `StoreResults` ensures that we have the `.get()` method.
+        assert_eq!(result.get(2), Some(&9));
+    }
+}
