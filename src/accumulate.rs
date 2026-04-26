@@ -1,6 +1,8 @@
 use super::{accumulated::Accumulated, strategy::AccumulateStrategy};
 
 pub trait Accumulate: Iterator {
+    /// # Errors
+    /// Returns an `Acc::Error` if there is an error while accumulating.
     fn accumulate<Acc>(&mut self) -> Result<Accumulated<Self::Item, Acc>, Acc::Error>
     where
         Acc: AccumulateStrategy<Self::Item>;

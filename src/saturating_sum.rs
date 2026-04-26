@@ -7,74 +7,74 @@ use super::{strategy::AccumulateStrategy, total::TotalResult};
 pub struct SaturatingSum;
 
 macro_rules! impl_accumulate_strategy {
-    (signed $t:ty) => {
-        impl AccumulateStrategy<$t> for SaturatingSum {
-            type Error = Infallible;
-            type State = $t;
+    // (signed $t:ty) => {
+    //     impl AccumulateStrategy<$t> for SaturatingSum {
+    //         type Error = Infallible;
+    //         type State = $t;
 
-            fn initialize() -> Self::State {
-                Self::State::default()
-            }
+    //         fn initialize() -> Self::State {
+    //             Self::State::default()
+    //         }
 
-            fn accumulate_into<I>(state: &mut Self::State, iter: I) -> Result<(), Self::Error>
-            where
-                I: Iterator<Item = $t>,
-            {
-                for item in iter {
-                    *state = state.saturating_add(item);
-                }
+    //         fn accumulate_into<I>(state: &mut Self::State, iter: I) -> Result<(), Self::Error>
+    //         where
+    //             I: Iterator<Item = $t>,
+    //         {
+    //             for item in iter {
+    //                 *state = state.saturating_add(item);
+    //             }
 
-                Ok(())
-            }
-        }
+    //             Ok(())
+    //         }
+    //     }
 
-        impl TotalResult<$t> for SaturatingSum {
-            type TotalRef<'a> = $t;
-            type Total = $t;
+    //     impl TotalResult<$t> for SaturatingSum {
+    //         type TotalRef<'a> = $t;
+    //         type Total = $t;
 
-            fn total(state: &Self::State) -> Self::TotalRef<'_> {
-                *state
-            }
+    //         fn total(state: &Self::State) -> Self::TotalRef<'_> {
+    //             *state
+    //         }
 
-            fn into_total(state: Self::State) -> Self::Total {
-                state
-            }
-        }
-    };
-    (signedw $t:ty) => {
-        impl AccumulateStrategy<$t> for SaturatingSum {
-            type Error = Infallible;
-            type State = $t;
+    //         fn into_total(state: Self::State) -> Self::Total {
+    //             state
+    //         }
+    //     }
+    // };
+    // (signedw $t:ty) => {
+    //     impl AccumulateStrategy<$t> for SaturatingSum {
+    //         type Error = Infallible;
+    //         type State = $t;
 
-            fn initialize() -> Self::State {
-                Self::State::default()
-            }
+    //         fn initialize() -> Self::State {
+    //             Self::State::default()
+    //         }
 
-            fn accululate_into<I>(state: &mut Self::State, iter: I) -> Result<(), Self::Error>
-            where
-                I: Iterator<Item = $t>,
-            {
-                for item in iter {
-                    state.0 = state.0.saturating_add(item.0);
-                }
+    //         fn accululate_into<I>(state: &mut Self::State, iter: I) -> Result<(), Self::Error>
+    //         where
+    //             I: Iterator<Item = $t>,
+    //         {
+    //             for item in iter {
+    //                 state.0 = state.0.saturating_add(item.0);
+    //             }
 
-                Ok(())
-            }
-        }
+    //             Ok(())
+    //         }
+    //     }
 
-        impl TotalResult<$t> for SaturatingSum {
-            type TotalRef<'a> = $t;
-            type Total = $t;
+    //     impl TotalResult<$t> for SaturatingSum {
+    //         type TotalRef<'a> = $t;
+    //         type Total = $t;
 
-            fn total(state: &Self::State) -> Self::TotalRef<'_> {
-                *state
-            }
+    //         fn total(state: &Self::State) -> Self::TotalRef<'_> {
+    //             *state
+    //         }
 
-            fn into_total(state: Self::State) -> Self::Total {
-                state
-            }
-        }
-    };
+    //         fn into_total(state: Self::State) -> Self::Total {
+    //             state
+    //         }
+    //     }
+    // };
     (unsigned $t:ty) => {
         impl AccumulateStrategy<$t> for SaturatingSum {
             type Error = Infallible;
@@ -110,48 +110,52 @@ macro_rules! impl_accumulate_strategy {
             }
         }
     };
-    (unsigned2 $t:ty) => {
-        impl AccumulateStrategy<$t> for SaturatingSum {
-            type Error = Infallible;
-            type State = $t;
+    // (unsigned2 $t:ty) => {
+    //     impl AccumulateStrategy<$t> for SaturatingSum {
+    //         type Error = Infallible;
+    //         type State = $t;
 
-            fn initialize() -> Self::State {
-                Self::State::default()
-            }
+    //         fn initialize() -> Self::State {
+    //             Self::State::default()
+    //         }
 
-            fn accululate_into<I>(state: &mut Self::State, iter: I) -> Result<(), Self::Error>
-            where
-                I: Iterator<Item = $t>,
-            {
-                use std::num::Saturating;
-                let Saturating(sum) = iter.map(|x| Saturating(x.0)).sum();
+    //         fn accululate_into<I>(state: &mut Self::State, iter: I) -> Result<(), Self::Error>
+    //         where
+    //             I: Iterator<Item = $t>,
+    //         {
+    //             use std::num::Saturating;
+    //             let Saturating(sum) = iter.map(|x| Saturating(x.0)).sum();
 
-                state.0 = state.0.saturating_add(sum);
+    //             state.0 = state.0.saturating_add(sum);
 
-                Ok(())
-            }
-        }
+    //             Ok(())
+    //         }
+    //     }
 
-        impl TotalResult<$t> for SaturatingSum {
-            type TotalRef<'a> = $t;
-            type Total = $t;
+    //     impl TotalResult<$t> for SaturatingSum {
+    //         type TotalRef<'a> = $t;
+    //         type Total = $t;
 
-            fn total(state: &Self::State) -> Self::TotalRef<'_> {
-                *state
-            }
+    //         fn total(state: &Self::State) -> Self::TotalRef<'_> {
+    //             *state
+    //         }
 
-            fn into_total(state: Self::State) -> Self::Total {
-                state
-            }
-        }
-    };
+    //         fn into_total(state: Self::State) -> Self::Total {
+    //             state
+    //         }
+    //     }
+    // };
     ($s: tt $($t: ty),+$(,)?) => {
         $(impl_accumulate_strategy!($s $t);)+
     };
 }
 
-impl_accumulate_strategy!(signed i8, i16, i32, i64, i128, isize);
+// It's not clear what we would want the saturating sum of signed values to be,
+// so we'll comment this out for now.
+// impl_accumulate_strategy!(signed i8, i16, i32, i64, i128, isize);
+
 impl_accumulate_strategy!(unsigned u8, u16, u32, u64, u128, usize);
+
 // impl_accumulate_strategy!(signedw ScoreValue<i8>, ScoreValue<i16>,
 // ScoreValue<i32>, ScoreValue<i64>, ScoreValue<i128>, ScoreValue<isize>);
 // impl_accumulate_strategy!(unsigned2 ScoreValue<u8>, ScoreValue<u16>,
