@@ -31,7 +31,5 @@ pub trait IndividualResults<Item>: AccumulateStrategy<Item> {
 pub trait IndexResults<Item, Index = usize>: IndividualResults<Item> {
     type Output: ?Sized; // = Self::Item;
 
-    fn get<'a>(state: &'a Self::State, index: Index) -> Option<&'a Self::Output>
-    where
-        Self::Item: 'a;
+    fn get(state: &Self::State, index: Index) -> Option<&Self::Output>;
 }

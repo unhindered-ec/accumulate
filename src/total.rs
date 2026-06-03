@@ -7,9 +7,8 @@ use super::strategy::AccumulateStrategy;
             such as `SaturatingSum`"
 )]
 pub trait TotalResult<Item>: AccumulateStrategy<Item> {
-    type TotalRef<'a>;
     type Total;
 
-    fn total(state: &Self::State) -> Self::TotalRef<'_>;
+    fn total(state: &Self::State) -> &Self::Total;
     fn into_total(state: Self::State) -> Self::Total;
 }

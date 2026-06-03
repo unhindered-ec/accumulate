@@ -19,3 +19,14 @@ impl<I: Iterator + ?Sized> Accumulate for I {
         }
     }
 }
+
+// #[cfg(test)]
+// mod test {
+//     use crate::{accumulate::Accumulate, accumulated::Accumulated};
+
+//     #[test]
+//     fn test() {
+//         let values = [1, 2, 3];
+//         let accumulated: Accumulated<i32> =
+// values.into_iter().accumulate().unwrap();     }
+// }

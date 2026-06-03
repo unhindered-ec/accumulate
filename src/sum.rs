@@ -33,12 +33,11 @@ where
 
 impl<T> TotalResult<T> for Sum
 where
-    for<'a> T: AddAssign + StdSum + Default + 'a,
+    T: AddAssign + StdSum + Default,
 {
-    type TotalRef<'a> = &'a T;
     type Total = T;
 
-    fn total(state: &Self::State) -> Self::TotalRef<'_> {
+    fn total(state: &Self::State) -> &Self::Total {
         state
     }
 

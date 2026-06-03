@@ -41,46 +41,10 @@ default_to! {
 
     f32 => KeepResults<Sum>,
     f64 => KeepResults<Sum>,
-
-    // ScoreValue<u8> => KeepResults<SaturatingSum>,
-    // ScoreValue<u16> => KeepResults<SaturatingSum>,
-    // ScoreValue<u32> => KeepResults<SaturatingSum>,
-    // ScoreValue<u64> => KeepResults<SaturatingSum>,
-    // ScoreValue<u128> => KeepResults<SaturatingSum>,
-    // ScoreValue<usize> => KeepResults<SaturatingSum>,
-
-    // ScoreValue<i8> => KeepResults<Widen<ScoreValue<i16>, Sum>>,
-    // ScoreValue<i16> => KeepResults<Widen<ScoreValue<i32>, Sum>>,
-    // ScoreValue<i32> => KeepResults<Widen<ScoreValue<i64>, Sum>>,
-    // ScoreValue<i64> => KeepResults<Widen<ScoreValue<i128>, Sum>>,
-    // ScoreValue<isize> => KeepResults<Sum>,
-
-    // ScoreValue<f32> => KeepResults<Sum>,
-    // ScoreValue<f64> => KeepResults<Sum>,
-
-    // ErrorValue<u8> => KeepResults<SaturatingSum>,
-    // ErrorValue<u16> => KeepResults<SaturatingSum>,
-    // ErrorValue<u32> => KeepResults<SaturatingSum>,
-    // ErrorValue<u64> => KeepResults<SaturatingSum>,
-    // ErrorValue<u128> => KeepResults<SaturatingSum>,
-    // ErrorValue<usize> => KeepResults<SaturatingSum>,
-
-    // ErrorValue<i8> => KeepResults<Widen<ErrorValue<i16>, Sum>>,
-    // ErrorValue<i16> => KeepResults<Widen<ErrorValue<i32>, Sum>>,
-    // ErrorValue<i32> => KeepResults<Widen<ErrorValue<i64>, Sum>>,
-    // ErrorValue<i64> => KeepResults<Widen<ErrorValue<i128>, Sum>>,
-    // ErrorValue<isize> => KeepResults<Sum>,
-
-    // ErrorValue<f32> => KeepResults<Sum>,
-    // ErrorValue<f64> => KeepResults<Sum>,
 }
 
 #[cfg(feature = "ordered-float")]
 default_to! {
     OrderedFloat<f32> => KeepResults<Sum>,
     OrderedFloat<f64> => KeepResults<Sum>,
-    // ScoreValue<OrderedFloat<f32>> => KeepResults<Sum>,
-    // ScoreValue<OrderedFloat<f64>> => KeepResults<Sum>,
-    // ErrorValue<OrderedFloat<f32>> => KeepResults<Sum>,
-    // ErrorValue<OrderedFloat<f64>> => KeepResults<Sum>,
 }

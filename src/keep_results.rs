@@ -61,10 +61,7 @@ where
 {
     type Output = Idx::Output;
 
-    fn get<'a>(state: &'a Self::State, index: Idx) -> Option<&'a Self::Output>
-    where
-        Self::Item: 'a,
-    {
+    fn get(state: &Self::State, index: Idx) -> Option<&Self::Output> {
         state.get(index)
     }
 }

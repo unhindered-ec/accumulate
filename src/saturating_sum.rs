@@ -29,10 +29,9 @@ macro_rules! impl_accumulate_strategy {
     //     }
 
     //     impl TotalResult<$t> for SaturatingSum {
-    //         type TotalRef<'a> = $t;
     //         type Total = $t;
-
-    //         fn total(state: &Self::State) -> Self::TotalRef<'_> {
+    //
+    //         fn total(state: &Self::State) -> &Self::Total {
     //             *state
     //         }
 
@@ -98,11 +97,10 @@ macro_rules! impl_accumulate_strategy {
         }
 
         impl TotalResult<$t> for SaturatingSum {
-            type TotalRef<'a> = $t;
             type Total = $t;
 
-            fn total(state: &Self::State) -> Self::TotalRef<'_> {
-                *state
+            fn total(state: &Self::State) -> &Self::Total {
+                &*state
             }
 
             fn into_total(state: Self::State) -> Self::Total {
@@ -133,10 +131,9 @@ macro_rules! impl_accumulate_strategy {
     //     }
 
     //     impl TotalResult<$t> for SaturatingSum {
-    //         type TotalRef<'a> = $t;
     //         type Total = $t;
 
-    //         fn total(state: &Self::State) -> Self::TotalRef<'_> {
+    //         fn total(state: &Self::State) -> &Self::Total {
     //             *state
     //         }
 

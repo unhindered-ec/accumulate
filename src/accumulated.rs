@@ -46,7 +46,7 @@ where
         Self { state }
     }
 
-    pub fn total(&self) -> Strategy::TotalRef<'_>
+    pub fn total(&self) -> &Strategy::Total
     where
         Strategy: TotalResult<Item>,
     {
@@ -98,35 +98,32 @@ where
 
 impl<Item, Strategy> Ord for Accumulated<Item, Strategy>
 where
-    Strategy: for<'a> TotalResult<Item, TotalRef<'a>: Ord>,
+    Strategy: TotalResult<Item, Total: Ord>,
 {
     fn cmp(&self, other: &Self) -> std::cmp::Ordering {
-        self.total().cmp(&other.total())
+        self.total().cmp(other.total())
     }
 }
 
 impl<Item, Strategy> PartialOrd for Accumulated<Item, Strategy>
 where
-    Strategy: for<'a> TotalResult<Item, TotalRef<'a>: PartialOrd>,
+    Strategy: TotalResult<Item, Total: PartialOrd>,
 {
     fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {
-        self.total().partial_cmp(&other.total())
+        self.total().partial_cmp(other.total())
     }
 }
 
 impl<Item, Strategy> PartialEq for Accumulated<Item, Strategy>
 where
-    Strategy: for<'a> TotalResult<Item, TotalRef<'a>: PartialEq>,
+    Strategy: TotalResult<Item, Total: PartialEq>,
 {
     fn eq(&self, other: &Self) -> bool {
-        self.total().eq(&other.total())
+        self.total().eq(other.total())
     }
 }
 
-impl<Item, Strategy> Eq for Accumulated<Item, Strategy> where
-    Strategy: for<'a> TotalResult<Item, TotalRef<'a>: Eq>
-{
-}
+impl<Item, Strategy> Eq for Accumulated<Item, Strategy> where Strategy: TotalResult<Item, Total: Eq> {}
 
 // currently not possible, should be viable in q3-q4 this year once the
 // next trait solver and ATPIT lands more widely
@@ -202,8 +199,7 @@ where
 
 impl<Item, Strategy> Display for Accumulated<Item, Strategy>
 where
-    Strategy: TotalResult<Item>,
-    for<'a> Strategy::TotalRef<'a>: Display,
+    Strategy: TotalResult<Item, Total: Display>,
 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         self.total().fmt(f)
@@ -228,7 +224,7 @@ mod test {
         //                            strategy here
         let result: Accumulated<u8> = scores.into_iter().accumulate().unwrap();
         // `SaturatingSum` ensures we have the `.total()` method.
-        assert_eq!(result.total(), 33);
+        assert_eq!(result.total(), &33);
         // `StoreResults` ensures that we have the `.get()` method.
         assert_eq!(result.get(2), Some(&9));
     }
