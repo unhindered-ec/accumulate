@@ -9,7 +9,7 @@ license = "MIT OR Apache-2.0"
 publish = false
 
 [dependencies]
-ordered-float = { version = "5.1.0", optional = true }
+ordered-float = { version = "5.3.0", optional = true }
 
 [features]
 default = ["ordered-float"]
