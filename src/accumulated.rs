@@ -215,7 +215,7 @@ mod test {
     use crate::{accumulate::Accumulate, accumulated::Accumulated};
 
     #[test]
-    fn saturating_u8() {
+    fn default_u8_strategy() {
         let scores: [u8; 7] = [5, 8, 9, 6, 3, 2, 0];
         // If we don't specify a second generic in `Accumulate<T>`,
         // the second generic defaults to the default accumulation strategy.
