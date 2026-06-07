@@ -1,11 +1,10 @@
+mod accumulate;
 use std::{convert::Infallible, fmt::Display, ops::Index};
 
-use super::{
-    default::DefaultAccumulateStrategy,
-    results::{IndexResults, IndividualResults},
-    strategy::AccumulateStrategy,
-    total::TotalResult,
-};
+pub use accumulate::Accumulate;
+
+use super::strategy::AccumulateStrategy;
+use crate::strategy::{DefaultAccumulateStrategy, IndexResults, IndividualResults, TotalResult};
 
 #[derive(Debug)]
 pub struct Accumulated<
@@ -208,7 +207,7 @@ where
 
 #[cfg(test)]
 mod test {
-    use crate::{accumulate::Accumulate, accumulated::Accumulated};
+    use super::{Accumulate, Accumulated};
 
     #[test]
     fn saturating_u8() {

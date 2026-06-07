@@ -1,3 +1,12 @@
+mod default;
+mod individual;
+mod total;
+mod wrapper;
+
+pub use default::{DefaultAccumulateStrategy, default_to};
+pub use individual::{IndexResults, IndividualResults};
+pub use total::TotalResult;
+
 pub trait AccumulateStrategy<Item>
 where
     Self: Sized,

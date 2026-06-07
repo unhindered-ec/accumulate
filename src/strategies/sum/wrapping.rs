@@ -1,19 +1,20 @@
-use std::{convert::Infallible, iter::Sum as StdSum, ops::AddAssign};
+use std::{convert::Infallible, iter::Sum as StdSum, num::Wrapping, ops::AddAssign};
 
-use super::{strategy::AccumulateStrategy, total::TotalResult};
+use crate::strategy::{AccumulateStrategy, TotalResult};
 
 #[derive(Debug, Clone, Copy)]
-pub struct Sum;
+pub struct WrappingSum;
 
-impl<T> AccumulateStrategy<T> for Sum
+impl<T> AccumulateStrategy<T> for WrappingSum
 where
-    T: AddAssign + StdSum + Default,
+    Wrapping<T>: AddAssign + StdSum,
+    T: Default,
 {
     type Error = Infallible;
-    type State = T;
+    type State = Wrapping<T>;
 
     fn initialize() -> Self::State {
-        T::default()
+        Wrapping(T::default())
     }
 
     #[expect(clippy::allow_attributes, reason = "Inside macro")]
@@ -25,23 +26,24 @@ where
     where
         I: Iterator<Item = T>,
     {
-        *state += iter.sum::<T>();
+        *state += iter.map(|x| Wrapping(x)).sum();
 
         Ok(())
     }
 }
 
-impl<T> TotalResult<T> for Sum
+impl<T> TotalResult<T> for WrappingSum
 where
-    T: AddAssign + StdSum + Default,
+    Wrapping<T>: AddAssign + StdSum,
+    T: Default,
 {
     type Total = T;
 
     fn total(state: &Self::State) -> &Self::Total {
-        state
+        &state.0
     }
 
     fn into_total(state: Self::State) -> Self::Total {
-        state
+        state.0
     }
 }

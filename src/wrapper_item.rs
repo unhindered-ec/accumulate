@@ -40,13 +40,10 @@ macro_rules! forward_wrapper_impl {
         where
             Self: $crate::total::TotalResult<T>,
         {
-            type TotalRef<'a> =
-                $wrapper_name<<Self as $crate::total::TotalResult<T>>::TotalRef<'a>>;
-
             type Total = $wrapper_name<<Self as $crate::total::TotalResult<T>>::Total>;
 
-            fn total(state: &Self::State) -> Self::TotalRef<'_> {
-                $wrapper_name::new(<Self as $crate::total::TotalResult<T>>::total(state))
+            fn total(state: &Self::State) -> &Self::Total {
+                $wrapper_name::ref_cast(<Self as $crate::total::TotalResult<T>>::total(state))
             }
 
             fn into_total(state: Self::State) -> Self::Total {
@@ -92,10 +89,7 @@ macro_rules! forward_wrapper_impl {
         {
             type Output = $wrapper_name<<Self as $crate::results::IndexResults<T, Index>>::Output>;
 
-            fn get<'a>(state: &'a Self::State, index: Index) -> Option<&'a Self::Output>
-            where
-                Self::Item: 'a,
-            {
+            fn get(state: &Self::State, index: Index) -> Option<&Self::Output> {
                 <Self as $crate::results::IndexResults<T, Index>>::get(state, index)
                     .map($wrapper_name::ref_cast)
             }

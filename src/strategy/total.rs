@@ -1,4 +1,4 @@
-use super::strategy::AccumulateStrategy;
+use super::AccumulateStrategy;
 
 #[diagnostic::on_unimplemented(
     message = "tried to access total result but `{Self}` does not provide a total result",

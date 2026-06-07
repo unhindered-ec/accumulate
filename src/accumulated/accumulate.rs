@@ -1,4 +1,4 @@
-use super::{accumulated::Accumulated, strategy::AccumulateStrategy};
+use crate::{accumulated::Accumulated, strategy::AccumulateStrategy};
 
 pub trait Accumulate: Iterator {
     /// # Errors

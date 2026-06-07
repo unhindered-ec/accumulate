@@ -1,10 +1,6 @@
 use std::marker::PhantomData;
 
-use super::{
-    results::{IndexResults, IndividualResults},
-    strategy::AccumulateStrategy,
-    total::TotalResult,
-};
+use crate::strategy::{AccumulateStrategy, IndexResults, IndividualResults, TotalResult};
 
 #[derive(Debug, Clone, Copy)]
 pub struct Widen<Item, Strategy> {
