@@ -1,4 +1,4 @@
-use super::strategy::AccumulateStrategy;
+use super::AccumulateStrategy;
 
 #[diagnostic::on_unimplemented(
     message = "tried to access total result but `{Self}` does not provide a total result",
@@ -7,9 +7,8 @@ use super::strategy::AccumulateStrategy;
             such as `SaturatingSum`"
 )]
 pub trait TotalResult<Item>: AccumulateStrategy<Item> {
-    type TotalRef<'a>;
     type Total;
 
-    fn total(state: &Self::State) -> Self::TotalRef<'_>;
+    fn total(state: &Self::State) -> &Self::Total;
     fn into_total(state: Self::State) -> Self::Total;
 }

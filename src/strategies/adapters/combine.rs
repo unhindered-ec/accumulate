@@ -1,10 +1,6 @@
 use std::{convert::Infallible, marker::PhantomData};
 
-use super::{
-    results::{IndexResults, IndividualResults},
-    strategy::AccumulateStrategy,
-    total::TotalResult,
-};
+use crate::strategy::{AccumulateStrategy, IndexResults, IndividualResults, TotalResult};
 
 #[derive(Debug, Clone, Copy)]
 pub struct Combine<IndividualStrategy, TotalStrategy> {
@@ -112,10 +108,7 @@ where
 {
     type Output = IndividualStrategy::Output;
 
-    fn get<'a>(state: &'a Self::State, index: Idx) -> Option<&'a Self::Output>
-    where
-        Self::Item: 'a,
-    {
+    fn get(state: &Self::State, index: Idx) -> Option<&Self::Output> {
         IndividualStrategy::get(&state.0, index)
     }
 }
@@ -126,11 +119,9 @@ where
     IndividualStrategy: IndividualResults<Item, Item: Clone>,
     TotalStrategy: TotalResult<IndividualStrategy::Item>,
 {
-    type TotalRef<'a> = TotalStrategy::TotalRef<'a>;
-
     type Total = TotalStrategy::Total;
 
-    fn total(state: &Self::State) -> Self::TotalRef<'_> {
+    fn total(state: &Self::State) -> &Self::Total {
         TotalStrategy::total(&state.1)
     }
 

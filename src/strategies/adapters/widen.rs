@@ -1,10 +1,6 @@
 use std::marker::PhantomData;
 
-use super::{
-    results::{IndexResults, IndividualResults},
-    strategy::AccumulateStrategy,
-    total::TotalResult,
-};
+use crate::strategy::{AccumulateStrategy, IndexResults, IndividualResults, TotalResult};
 
 #[derive(Debug, Clone, Copy)]
 pub struct Widen<Item, Strategy> {
@@ -72,10 +68,7 @@ where
 {
     type Output = Strategy::Output;
 
-    fn get<'a>(state: &'a Self::State, index: Idx) -> Option<&'a Self::Output>
-    where
-        Self::Item: 'a,
-    {
+    fn get(state: &Self::State, index: Idx) -> Option<&Self::Output> {
         Strategy::get(state, index)
     }
 }
@@ -85,10 +78,9 @@ where
     Strategy: TotalResult<NewItem>,
     Item: Into<NewItem>,
 {
-    type TotalRef<'a> = Strategy::TotalRef<'a>;
     type Total = Strategy::Total;
 
-    fn total(state: &Self::State) -> Self::TotalRef<'_> {
+    fn total(state: &Self::State) -> &Self::Total {
         Strategy::total(state)
     }
 

@@ -1,10 +1,6 @@
 use std::{convert::Infallible, slice::SliceIndex};
 
-use super::{
-    combine::Combine,
-    results::{IndexResults, IndividualResults},
-    strategy::AccumulateStrategy,
-};
+use crate::strategy::{AccumulateStrategy, IndexResults, IndividualResults};
 
 // Could make this generic in a ´C: Container` struct to use Vec/VecDeque/...
 // where Container has a Container<T> associated type (hkt).
@@ -61,12 +57,7 @@ where
 {
     type Output = Idx::Output;
 
-    fn get<'a>(state: &'a Self::State, index: Idx) -> Option<&'a Self::Output>
-    where
-        Self::Item: 'a,
-    {
+    fn get(state: &Self::State, index: Idx) -> Option<&Self::Output> {
         state.get(index)
     }
 }
-
-pub type KeepResults<T> = Combine<StoreResults, T>;

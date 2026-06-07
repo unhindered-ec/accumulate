@@ -1,6 +1,14 @@
+pub mod checked;
+pub mod saturating;
+mod wrapping;
+
 use std::{convert::Infallible, iter::Sum as StdSum, ops::AddAssign};
 
-use super::{strategy::AccumulateStrategy, total::TotalResult};
+pub use checked::CheckedSum;
+pub use saturating::SaturatingSum;
+pub use wrapping::WrappingSum;
+
+use crate::strategy::{AccumulateStrategy, TotalResult};
 
 #[derive(Debug, Clone, Copy)]
 pub struct Sum;
@@ -33,12 +41,11 @@ where
 
 impl<T> TotalResult<T> for Sum
 where
-    for<'a> T: AddAssign + StdSum + Default + 'a,
+    T: AddAssign + StdSum + Default,
 {
-    type TotalRef<'a> = &'a T;
     type Total = T;
 
-    fn total(state: &Self::State) -> Self::TotalRef<'_> {
+    fn total(state: &Self::State) -> &Self::Total {
         state
     }
 

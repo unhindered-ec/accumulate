@@ -1,6 +1,6 @@
 use std::{convert::Infallible, iter::Sum as StdSum, num::Wrapping, ops::AddAssign};
 
-use super::{strategy::AccumulateStrategy, total::TotalResult};
+use crate::strategy::{AccumulateStrategy, TotalResult};
 
 #[derive(Debug, Clone, Copy)]
 pub struct WrappingSum;
@@ -35,12 +35,11 @@ where
 impl<T> TotalResult<T> for WrappingSum
 where
     Wrapping<T>: AddAssign + StdSum,
-    for<'a> T: Default + 'a,
+    T: Default,
 {
-    type TotalRef<'a> = &'a T;
     type Total = T;
 
-    fn total(state: &Self::State) -> Self::TotalRef<'_> {
+    fn total(state: &Self::State) -> &Self::Total {
         &state.0
     }
 
